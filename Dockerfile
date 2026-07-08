@@ -10,6 +10,6 @@ COPY app ./app
 RUN useradd game-picks
 USER game-picks
 
-CMD ["python3","-m","app"]
+CMD ["python3","-m","app.main"]
 
 
