@@ -1,17 +1,22 @@
-FROM python:3.13-slim
+FROM python:3.13-alpine as builder
 
-WORKDIR /usr/local/app
-
-EXPOSE 8000/udp
+WORKDIR /app
 
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY app ./app
+COPY . .
+
+FROM python:3.13-alpine
+
+CMD ["python3","-m","app.main"]
+
+EXPOSE 8000
+
+WORKDIR /app
 
 RUN useradd game-picks
 USER game-picks
 
-CMD ["python3","-m","app.main"]
-
+COPY --from=builder /app /app
 
