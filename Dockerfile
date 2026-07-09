@@ -11,7 +11,7 @@ COPY . .
 
 FROM python:3.13-alpine
 
-RUN adduser -D game-picks
+RUN apk --no-cache add curl && adduser -D game-picks
 
 WORKDIR /app
 
@@ -28,3 +28,7 @@ EXPOSE 8000
 
 HEALTHCHECK --interval=5m --timeout=5s --start-period=5s \
     CMD curl -f https://localhost:8000/ || exit 1
+
+LABEL maintainer="daretodream666"
+LABEL project="game-picks"
+LABEL version="0.1"
