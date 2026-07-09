@@ -25,3 +25,6 @@ ENV PATH="/venv/bin:$PATH"
 CMD ["python3","-m","app.main"]
 
 EXPOSE 8000
+
+HEALTHCHECK --interval=5m --timeout=5s --start-period=5s \
+    CMD curl -f https://localhost:8000/ || exit 1
